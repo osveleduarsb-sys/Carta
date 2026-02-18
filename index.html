@@ -1,0 +1,237 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carta Secreta by myeya</title>
+  <style>
+  * {
+  box-sizing: border-box;
+}
+    html {
+  background: 
+    linear-gradient(rgba(207, 237, 252, 0.8), rgba(180, 220, 240, 0.9)),
+    url('petalos.png');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.hint-btn {
+  margin-top: 25px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background-color: #f8bbd0;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hint-btn:hover {
+  background-color: #f48fb1;
+}
+
+/* MODAL */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: rgba(228, 252, 250, 0.95);
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content button {
+  margin-top: 15px;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 15px;
+  background-color: #f8bbd0;
+  cursor: pointer;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  height: 100%;
+}
+.screen {
+  display: none;
+  min-height: 100dvh;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+    .password-screen {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /*  la centramos verticalmente */
+  padding: 0; /* quitamos el espacio extra */
+}
+    .active {
+      display: flex;
+    }
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 60px);
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    .key {
+      background-color: #e4fcfa;
+      border: none;
+      border-radius: 10px;
+      font-size: 20px;
+      padding: 15px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .key:hover {
+      background-color: #f48fb1;
+    }
+    .input-display {
+      font-size: 24px;
+      margin-top: 20px;
+      letter-spacing: 8px;
+    }
+    .notepad {
+  background-color: rgba(228, 252, 250, 0.6);
+  border: 3px solid #f8bbd0;
+  padding: 20px;
+  border-radius: 25px;
+  width: 90%;
+max-width: 380px;
+  text-align: left;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  line-height: 1.7;
+
+  backdrop-filter: blur(8px);
+-webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+#notepadScreen {
+  flex-direction: column;
+}
+    .notepad h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div id="passwordScreen" class="screen password-screen active">
+  <h2>🔒 Enter password</h2>
+  <div class="input-display" id="inputDisplay">••••</div>
+  <div class="keypad">
+    <button class="key" onclick="enterDigit('1')">1</button>
+    <button class="key" onclick="enterDigit('2')">2</button>
+    <button class="key" onclick="enterDigit('3')">3</button>
+    <button class="key" onclick="enterDigit('4')">4</button>
+    <button class="key" onclick="enterDigit('5')">5</button>
+    <button class="key" onclick="enterDigit('6')">6</button>
+    <button class="key" onclick="enterDigit('7')">7</button>
+    <button class="key" onclick="enterDigit('9')">9</button>
+    <button class="key" onclick="enterDigit('8')">8</button>
+    <div></div>
+    <button class="key" onclick="enterDigit('0')">0</button>
+    <div></div>
+  </div>
+  <button class="hint-btn" onclick="openModal()">
+  💡 Pista del primer dígito
+</button>
+</div>
+
+<div id="notepadScreen" class="screen">
+  <div class="notepad">
+    <h3>📅 17 febrero 2026 </h3>
+    <h4>💌 Mi Querida Carlita </h4>
+    <p>
+      Hoy quiero expresarte lo feliz que me siento, porque mirar el cielo me recuerda al cielo que solo existe en tus ojos, aquel que me mira con amor aún cuando los mios me miran con odio, porque soy consiente que tú voz es parte de ese amor que puedo decir con certeza que conozco, porque eres parte de mi vida y gracias a ello puedo decir; mi vida, eres hermosa.
+    </p>
+    <p>
+      Mi querida Carlita, no se en que momento me enamore tanto de ti, pero se que en todo momento quiero estar contigo. Llegaste a mi vida y llegó el amor contigo, llegaron las risas como la brisa llega en primavera y los sueños que despertaron querer una vida contigo, se que no fuiste una casualidad, eres una respuesta de Dios cuando le pedí conocer el amor, y me susurro tu nombre de la forma más bonita.
+    </p>
+    <p>
+      Cariño, me siento feliz y tú eres el motivo, eres esa sonrisa en mis días felices, eres el brillo en mis ojos cuando se cruzan con el cielo, eres ese amor en mis labios cuando hablo del amor verdadero, eres todo lo que mi vida necesita... eres el amor de mi vida, mi querida Carlita.
+    </p>
+    <p>
+      Te amo profundamente. ♡
+    </p>
+  </div>
+</div>
+
+<div id="hintModal" class="modal">
+  <div class="modal-content">
+    <p>
+      El primer dígito de la clave, es el segundo número de la fecha
+      del día que nos hicimos novios por primera vez 💕
+    </p>
+    <button onclick="closeModal()">Listo</button>
+  </div>
+</div>
+
+<script>
+  const correctPassword = '9121';
+  let input = '';
+
+  function enterDigit(digit) {
+    if (input.length < 4) {
+      input += digit;
+    }
+
+    const display = document.getElementById('inputDisplay');
+    display.textContent = input.padEnd(4, '•');
+
+    if (input.length === 4) {
+      if (input === correctPassword) {
+        document.getElementById('passwordScreen').classList.remove('active');
+        document.getElementById('notepadScreen').classList.add('active');
+      } else {
+        alert('Contraseña incorecta, intenta de nuevo');
+        input = '';
+        display.textContent = '••••';
+      }
+    }
+  }
+  
+  function openModal() {
+  document.getElementById('hintModal').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('hintModal').style.display = 'none';
+}
+
+// Cerrar tocando fuera del modal
+document.getElementById('hintModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeModal();
+  }
+});
+</script>
+
+</body>
+</html>
